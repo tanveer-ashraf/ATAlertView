@@ -1,3 +1,4 @@
+
 //
 //  ATAlertView.swift
 //  ATAlertView
@@ -63,7 +64,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func createAlertView(titleText:String!, messageText:String!, cancelButtonTitle:String!, otherButtonTitle:String!)
+    private func createAlertView(titleText:String!, messageText:String!, cancelButtonTitle:String!, otherButtonTitle:String!)
     {
         
         var alertWidth:CGFloat      = 250
@@ -145,7 +146,7 @@ class ATAlertView: NSObject {
     
     
     //==================== Create Buttons //===================
-    func addButtonWithTitle(title:String, frame:CGRect)
+    private func addButtonWithTitle(title:String, frame:CGRect)
     {
         let btn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         btn.setTitle(title, forState: UIControlState.Normal)
@@ -187,7 +188,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func createBackgroundOverlay()
+    private func createBackgroundOverlay()
     {
         overlayView = UIView(frame: parentView.bounds)
         
@@ -206,7 +207,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func showAlert(withPresentationStyle: ATAlertViewPresentationStyle, andDismissStyle:ATAlertViewDismissStyle)
+    private func showAlert(withPresentationStyle: ATAlertViewPresentationStyle, andDismissStyle:ATAlertViewDismissStyle)
     {
         
         if(isGestureModeEnable){
@@ -289,7 +290,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func createPanGesture()
+    private func createPanGesture()
     {
         let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePan:")) as UIPanGestureRecognizer
         
@@ -298,7 +299,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func createTapGesture()
+    private func createTapGesture()
     {
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTap:")) as UITapGestureRecognizer
         
@@ -307,7 +308,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func dismissAlert(sender:UIButton!)
+    internal func dismissAlert(sender:UIButton!)
     {
         
         animator.removeAllBehaviors()
@@ -383,7 +384,7 @@ class ATAlertView: NSObject {
     }
     
     
-    func handlePan(sender: UIPanGestureRecognizer) {
+    internal func handlePan(sender: UIPanGestureRecognizer) {
         
         if (alertView != nil) {
             let panLocationInView = sender.locationInView(parentView)
@@ -423,7 +424,7 @@ class ATAlertView: NSObject {
     
     
     
-    func handleTap(sender: UITapGestureRecognizer) {
+    internal func handleTap(sender: UITapGestureRecognizer) {
         
         if (alertView != nil) {
             
