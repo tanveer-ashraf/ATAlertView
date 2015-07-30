@@ -2,8 +2,8 @@
 //  ATAlertView.swift
 //  ATAlertView
 //
-//  Created by cellzone on 7/10/15.
-//  Copyright (c) 2015 cellzone. All rights reserved.
+//  Created by Tanveer Ashraf on 7/10/15.
+//  Copyright (c) 2015 AT. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ protocol ATAlertviewDelegate{
 }
 
 class ATAlertView: NSObject {
-
+    
     
     //================ Private Properties ===================//
     private var alertView           : UIView!
@@ -119,8 +119,8 @@ class ATAlertView: NSObject {
             alertView.frame.size = CGSizeMake(alertWidth,alertHeight)
             addButtonWithTitle(cancelButtonTitle, frame: CGRectMake(0, alertHeight - 40, alertWidth/2, 40))
             addButtonWithTitle(otherButtonTitle, frame: CGRectMake(alertWidth/2, alertHeight - 40, alertWidth/2, 40))
-        
-        
+            
+            
         }else{
             
             if(cancelButtonTitle != nil){
@@ -140,7 +140,7 @@ class ATAlertView: NSObject {
         }
         
     }
-       
+    
     
     
     
@@ -160,7 +160,7 @@ class ATAlertView: NSObject {
         
         alertView.addSubview(btn)
     }
-
+    
     
     func showAlertToView(view: UIView, title:String, message:String, cancelButtonTitle:String!,  otherButtonTitle:String!, presentaitonStyle:ATAlertViewPresentationStyle ,dismissStyle: ATAlertViewDismissStyle)
     {
@@ -194,7 +194,7 @@ class ATAlertView: NSObject {
         if(overlayBackgroundColor != nil){
             
             overlayView.backgroundColor = overlayBackgroundColor
-        
+            
         }else{
             
             overlayView.backgroundColor = UIColor.blackColor()
@@ -214,7 +214,7 @@ class ATAlertView: NSObject {
             if(alertDismissGesture == ATAlertViewGestureType.Pan){
                 
                 createPanGesture()
-            
+                
             }else if(alertDismissGesture == ATAlertViewGestureType.Tap){
                 
                 createTapGesture()
@@ -260,7 +260,7 @@ class ATAlertView: NSObject {
             
             alertView.frame = CGRectMake(parentView.center.x - (alertView.frame.width/2), parentView.frame.size.height, alertView.frame.size.width, alertView.frame.size.height)
             
-
+            
             var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
             gravity.gravityDirection = CGVectorMake(0, -10)
             animator.addBehavior(gravity)
@@ -274,7 +274,7 @@ class ATAlertView: NSObject {
             
         }else{
             
-            if(alertPresentationStyle == ATAlertViewPresentationStyle.HardUp){
+            if(alertPresentationStyle == ATAlertViewPresentationStyle.HardDown){
                 
                 alertView.frame = CGRectMake(0, parentView.frame.size.height, alertView.frame.size.width, alertView.frame.size.height)
                 
@@ -333,7 +333,7 @@ class ATAlertView: NSObject {
             itemBehaviour.addAngularVelocity(CGFloat(M_PI_2), forItem: alertView)
             animator.addBehavior(itemBehaviour)
             
-    
+            
             
         }else{
             
@@ -348,7 +348,7 @@ class ATAlertView: NSObject {
                 
                 
                 gravity.gravityDirection = CGVectorMake(0, -10)
-            
+                
             }else if (alertDismissStyle == ATAlertViewDismissStyle.SmoothDown){
                 
                 gravity.gravityDirection = CGVectorMake(0, 10)
@@ -357,7 +357,7 @@ class ATAlertView: NSObject {
             animator.addBehavior(gravity)
             
             
-        
+            
         }
         
         
@@ -395,12 +395,12 @@ class ATAlertView: NSObject {
                 let offset = UIOffsetMake(panLocationInAlertView.x - CGRectGetMidX(alertView.bounds), panLocationInAlertView.y - CGRectGetMidY(alertView.bounds));
                 attachmentBehavior = UIAttachmentBehavior(item: alertView, offsetFromCenter: offset, attachedToAnchor: panLocationInView)
                 animator.addBehavior(attachmentBehavior)
-             
+                
                 
             }else if sender.state == UIGestureRecognizerState.Changed {
                 attachmentBehavior.anchorPoint = panLocationInView
-            
-            
+                
+                
             }else if sender.state == UIGestureRecognizerState.Ended {
                 animator.removeAllBehaviors()
                 
@@ -426,12 +426,12 @@ class ATAlertView: NSObject {
     func handleTap(sender: UITapGestureRecognizer) {
         
         if (alertView != nil) {
-
+            
             dismissAlert(nil)
         }
         
     }
-
-
+    
+    
     
 }
