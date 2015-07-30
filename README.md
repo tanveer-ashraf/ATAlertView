@@ -27,7 +27,7 @@ alert.alertDismissGesture = ATAlertViewGestureType.Tap
 // Customise Alrt and background overlay
 alert.titleColor             = UIColor.whiteColor()
 alert.messageColor           = UIColor.whiteColor()
-alert.backgroundColor        = UIColor.redColor();
+alert.backgroundColor        = UIColor.redColor()
 alert.overlayBackgroundColor = UIColor.blueColor()
 
 ```
