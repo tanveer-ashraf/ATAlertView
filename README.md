@@ -13,22 +13,23 @@ Custom gesture base easy to use alert view for iOS written in Swift.
 ```swift
 alert = ATAlertView()
 alert.delegate = self
-alert.showAlertToView(self.view,title: "Sample Title", 
-                                message: "Sample message Sample message Sample message", 
-                                cancelButtonTitle: "Ok", 
-                                otherButtonTitle: nil,  
-                                presentaitonStyle: ATAlertViewPresentationStyle.HardDown, 
-                                dismissStyle: ATAlertViewDismissStyle.HardUp)
+alert.showAlertToView(view: self.view,
+                             title: "Sample Title",
+                             message: "Sample message Sample message Sample message",
+                             cancelButtonTitle: "Ok",
+                             otherButtonTitle: nil,
+                             presentaitonStyle: .HardDown,
+                             dismissStyle: .HardUp)
                                 
 // By default gestures are on and default geture will be UIPanGesture but you can change it to tap or turn it off
 alert.isGestureModeEnable = false;
 alert.alertDismissGesture = ATAlertViewGestureType.Tap
-
+        
 // Customise Alrt and background overlay
-alert.titleColor             = UIColor.whiteColor()
-alert.messageColor           = UIColor.whiteColor()
-alert.backgroundColor        = UIColor.redColor()
-alert.overlayBackgroundColor = UIColor.blueColor()
+alert.titleColor             = UIColor.white
+alert.messageColor           = UIColor.white
+alert.backgroundColor        = UIColor.red
+alert.overlayBackgroundColor = UIColor.blue
 
 ```
 
