@@ -16,7 +16,13 @@ class ViewController: UIViewController,ATAlertviewDelegate {
         
         alert = ATAlertView()
         alert.delegate = self
-        alert.showAlertToView(self.view,title: "Sample Title", message: "Sample message Sample message Sample message", cancelButtonTitle: "Ok", otherButtonTitle: nil,  presentaitonStyle: ATAlertViewPresentationStyle.HardDown, dismissStyle: ATAlertViewDismissStyle.HardUp)
+        alert.showAlertToView(view: self.view,
+                              title: "Sample Title",
+                              message: "Sample message Sample message Sample message",
+                              cancelButtonTitle: "Ok",
+                              otherButtonTitle: nil,
+                              presentaitonStyle: .HardDown,
+                              dismissStyle: .HardUp)
         
     }
     

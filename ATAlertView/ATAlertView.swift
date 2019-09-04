@@ -67,16 +67,16 @@ class ATAlertView: NSObject {
     private func createAlertView(titleText:String!, messageText:String!, cancelButtonTitle:String!, otherButtonTitle:String!)
     {
         
-        var alertWidth:CGFloat      = 250
+        let alertWidth:CGFloat      = 250
         var alertHeight:CGFloat     = 150
-        var alertFrame              = CGRectMake(0, 0, alertWidth, alertHeight)
+        let alertFrame              = CGRect(x: 0, y: 0, width: alertWidth, height: alertHeight)
         
         alertView                       = UIView(frame: alertFrame)
         alertView.alpha                 = 0.0
-        alertView.backgroundColor       = UIColor.whiteColor()
+        alertView.backgroundColor       = UIColor.white
         alertView.layer.cornerRadius    = 10
-        alertView.layer.shadowColor     = UIColor.blackColor().CGColor
-        alertView.layer.shadowOffset    = CGSizeMake(0, 5)
+        alertView.layer.shadowColor     = UIColor.black.cgColor
+        alertView.layer.shadowOffset    = CGSize(width: 0, height: 5)
         alertView.layer.shadowOpacity   = 0.3
         alertView.layer.shadowRadius    = 10.0
         
@@ -89,26 +89,26 @@ class ATAlertView: NSObject {
         
         //Create Title
         
-        var title:UILabel   = UILabel(frame: CGRectMake(5, 5, alertWidth - 10, 20))
-        title.textAlignment = NSTextAlignment.Center
+        let title:UILabel   = UILabel(frame: CGRect(x: 5, y: 5, width: alertWidth - 10, height:20))
+        title.textAlignment = NSTextAlignment.center
         title.text          = titleText
         alertView.addSubview(title)
         
         
         //CreateMessage
-        var message:UILabel   = UILabel(frame: CGRectMake(5, 25, alertWidth - 10, CGFloat.max))
+        let message:UILabel   = UILabel(frame: CGRect(x: 5, y: 25, width: alertWidth - 10, height: CGFloat.greatestFiniteMagnitude))
         message.numberOfLines = 0
-        message.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        message.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         message.text = messageText
-        message.font = UIFont.systemFontOfSize(12)
+        message.font = UIFont.systemFont(ofSize: 12)
         
         message.sizeToFit()
         alertHeight = message.frame.height + 35
-        alertView.frame.size = CGSizeMake(alertWidth,alertHeight)
+        alertView.frame.size = CGSize(width: alertWidth, height: alertHeight)
         
-        message.frame = CGRectMake(5, 30, alertWidth - 10, message.frame.height)
-        message.textAlignment = NSTextAlignment.Center
+        message.frame = CGRect(x: 5, y: 30, width: alertWidth - 10, height: message.frame.height)
+        message.textAlignment = NSTextAlignment.center
         alertView.addSubview(message)
         
         
@@ -117,9 +117,9 @@ class ATAlertView: NSObject {
             
             
             alertHeight += 50
-            alertView.frame.size = CGSizeMake(alertWidth,alertHeight)
-            addButtonWithTitle(cancelButtonTitle, frame: CGRectMake(0, alertHeight - 40, alertWidth/2, 40))
-            addButtonWithTitle(otherButtonTitle, frame: CGRectMake(alertWidth/2, alertHeight - 40, alertWidth/2, 40))
+            alertView.frame.size = CGSize(width: alertWidth, height: alertHeight)
+            addButtonWithTitle(title: cancelButtonTitle, frame: CGRect(x: 0, y: alertHeight - 40, width: alertWidth/2, height: 40))
+            addButtonWithTitle(title: otherButtonTitle, frame: CGRect(x: alertWidth/2, y: alertHeight - 40, width: alertWidth/2, height: 40))
             
             
         }else{
@@ -127,14 +127,14 @@ class ATAlertView: NSObject {
             if(cancelButtonTitle != nil){
                 
                 alertHeight += 60
-                alertView.frame.size = CGSizeMake(alertWidth,alertHeight)
-                addButtonWithTitle(cancelButtonTitle, frame: CGRectMake(0, alertHeight - 40, alertWidth, 40))
+                alertView.frame.size = CGSize(width: alertWidth, height: alertHeight)
+                addButtonWithTitle(title: cancelButtonTitle, frame: CGRect(x: 0, y: alertHeight - 40, width: alertWidth, height: 40))
                 
             }else if(otherButtonTitle != nil){
                 
                 alertHeight += 60
-                alertView.frame.size = CGSizeMake(alertWidth,alertHeight)
-                addButtonWithTitle(otherButtonTitle, frame: CGRectMake(0, alertHeight - 40, alertWidth, 40))
+                alertView.frame.size = CGSize(width: alertWidth, height: alertHeight)
+                addButtonWithTitle(title: otherButtonTitle, frame: CGRect(x: 0, y: alertHeight - 40, width: alertWidth, height: 40))
                 
                 
             }
@@ -148,16 +148,17 @@ class ATAlertView: NSObject {
     //==================== Create Buttons //===================
     private func addButtonWithTitle(title:String, frame:CGRect)
     {
-        let btn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        btn.setTitle(title, forState: UIControlState.Normal)
-        btn.backgroundColor = UIColor.whiteColor()
+        let btn = UIButton(type: .system)
+        btn.setTitle(title, for: UIControl.State.normal)
+        btn.backgroundColor = UIColor.white
         btn.frame = frame
-        btn.layer.borderColor = UIColor.grayColor().CGColor
+        btn.layer.borderColor = UIColor.gray.cgColor
         btn.layer.borderWidth = 0.5
         btn.tag = tag
-        tag++
+        tag += 1
         
-        btn.addTarget(self, action: Selector("dismissAlert:"), forControlEvents: UIControlEvents.TouchUpInside)
+        btn.addTarget(self, action:#selector(dismissAlert(sender:)), for: .touchUpInside)
+        
         
         alertView.addSubview(btn)
     }
@@ -170,7 +171,7 @@ class ATAlertView: NSObject {
         if(alertView == nil){
             
             
-            createAlertView(title, messageText: message, cancelButtonTitle: cancelButtonTitle, otherButtonTitle: otherButtonTitle)
+            createAlertView(titleText: title, messageText: message, cancelButtonTitle: cancelButtonTitle, otherButtonTitle: otherButtonTitle)
             createBackgroundOverlay()
         }
         
@@ -181,7 +182,7 @@ class ATAlertView: NSObject {
         
         // Create the dark background view and the alert view
         parentView.addSubview(alertView)
-        showAlert(alertPresentationStyle, andDismissStyle: alertDismissStyle)
+        showAlert(withPresentationStyle: alertPresentationStyle, andDismissStyle: alertDismissStyle)
         
         
         
@@ -198,7 +199,7 @@ class ATAlertView: NSObject {
             
         }else{
             
-            overlayView.backgroundColor = UIColor.blackColor()
+            overlayView.backgroundColor = UIColor.black
         }
         
         
@@ -230,7 +231,7 @@ class ATAlertView: NSObject {
         animator.removeAllBehaviors()
         
         
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animate(withDuration: 0.4, animations:{
             
             self.overlayView.alpha = 0.7
             
@@ -243,15 +244,16 @@ class ATAlertView: NSObject {
         if(alertPresentationStyle == ATAlertViewPresentationStyle.SmoothUp){
             
             
-            alertView.frame = CGRectMake(parentView.center.x - (alertView.frame.width/2), 0, alertView.frame.size.width, alertView.frame.size.height)
+            alertView.frame = CGRect(x: parentView.center.x - (alertView.frame.width/2), y: 0, width: alertView.frame.size.width, height: alertView.frame.size.height)
             
-            var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
-            gravity.gravityDirection = CGVectorMake(0, 10)
+            let gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
+            gravity.gravityDirection = CGVector(dx: 0, dy: 10)
             animator.addBehavior(gravity)
             
             
-            var collision = UICollisionBehavior(items: [alertView])
-            collision.addBoundaryWithIdentifier("alertBoundry", fromPoint:CGPointMake(0, parentView.center.y + (alertView.frame.size.height/2)) , toPoint: CGPointMake(parentView.frame.size.width, parentView.center.y + (alertView.frame.size.height/2)))
+            let collision = UICollisionBehavior(items: [alertView])
+            
+            collision.addBoundary(withIdentifier: "alertBoundry" as NSCopying, from:CGPoint(x: 0, y: parentView.center.y + (alertView.frame.size.height/2)) , to: CGPoint(x: parentView.frame.size.width, y: parentView.center.y + (alertView.frame.size.height/2)))
             animator.addBehavior(collision)
             
             
@@ -259,16 +261,16 @@ class ATAlertView: NSObject {
         }else if(alertPresentationStyle == ATAlertViewPresentationStyle.SmoothDown){
             
             
-            alertView.frame = CGRectMake(parentView.center.x - (alertView.frame.width/2), parentView.frame.size.height, alertView.frame.size.width, alertView.frame.size.height)
+            alertView.frame = CGRect(x: parentView.center.x - (alertView.frame.width/2), y: parentView.frame.size.height, width: alertView.frame.size.width, height: alertView.frame.size.height)
             
             
-            var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
-            gravity.gravityDirection = CGVectorMake(0, -10)
+            let gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
+            gravity.gravityDirection = CGVector(dx: 0, dy: -10)
             animator.addBehavior(gravity)
             
             
-            var collision = UICollisionBehavior(items: [alertView])
-            collision.addBoundaryWithIdentifier("alertBoundry", fromPoint:CGPointMake(0, parentView.center.y - (alertView.frame.size.height/2)) , toPoint: CGPointMake(parentView.frame.size.width, parentView.center.y - (alertView.frame.size.height/2)))
+            let collision = UICollisionBehavior(items: [alertView])
+            collision.addBoundary(withIdentifier: "alertBoundry" as NSCopying, from:CGPoint(x: 0, y: parentView.center.y - (alertView.frame.size.height/2)) , to: CGPoint(x: parentView.frame.size.width, y: parentView.center.y - (alertView.frame.size.height/2)))
             animator.addBehavior(collision)
             
             
@@ -277,11 +279,11 @@ class ATAlertView: NSObject {
             
             if(alertPresentationStyle == ATAlertViewPresentationStyle.HardDown){
                 
-                alertView.frame = CGRectMake(0, parentView.frame.size.height, alertView.frame.size.width, alertView.frame.size.height)
+                alertView.frame = CGRect(x: 0, y: parentView.frame.size.height, width: alertView.frame.size.width, height: alertView.frame.size.height)
                 
             }
             
-            var snapVehaviour : UISnapBehavior = UISnapBehavior(item: alertView, snapToPoint: parentView.center)
+            let snapVehaviour : UISnapBehavior = UISnapBehavior(item: alertView, snapTo: parentView.center)
             animator.addBehavior(snapVehaviour)
         }
         
@@ -292,7 +294,7 @@ class ATAlertView: NSObject {
     
     private func createPanGesture()
     {
-        let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePan:")) as UIPanGestureRecognizer
+        let panGesture = UIPanGestureRecognizer(target: self, action: Selector(("handlePan:"))) as UIPanGestureRecognizer
         
         parentView.addGestureRecognizer(panGesture)
         
@@ -301,14 +303,14 @@ class ATAlertView: NSObject {
     
     private func createTapGesture()
     {
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTap:")) as UITapGestureRecognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector(("handleTap:"))) as UITapGestureRecognizer
         
         overlayView.addGestureRecognizer(tapGesture)
         
     }
     
     
-    internal func dismissAlert(sender:UIButton!)
+    @objc internal func dismissAlert(sender:UIButton!)
     {
         
         animator.removeAllBehaviors()
@@ -316,43 +318,43 @@ class ATAlertView: NSObject {
         if(alertDismissStyle == ATAlertViewDismissStyle.HardDown){
             
             
-            var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
-            gravity.gravityDirection = CGVectorMake(0, 10)
+            let gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
+            gravity.gravityDirection = CGVector(dx: 0, dy: 10)
             animator.addBehavior(gravity)
             
-            var itemBehaviour : UIDynamicItemBehavior = UIDynamicItemBehavior(items: [alertView])
-            itemBehaviour.addAngularVelocity(CGFloat(-M_PI_2), forItem: alertView)
+            let itemBehaviour : UIDynamicItemBehavior = UIDynamicItemBehavior(items: [alertView])
+            itemBehaviour.addAngularVelocity(CGFloat(-Double.pi/2), for: alertView)
             animator.addBehavior(itemBehaviour)
             
         }else if(alertDismissStyle == ATAlertViewDismissStyle.HardUp){
             
-            var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
-            gravity.gravityDirection = CGVectorMake(0, -10)
+            let gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
+            gravity.gravityDirection = CGVector(dx: 0, dy: -10)
             animator.addBehavior(gravity)
             
-            var itemBehaviour : UIDynamicItemBehavior = UIDynamicItemBehavior(items: [alertView])
-            itemBehaviour.addAngularVelocity(CGFloat(M_PI_2), forItem: alertView)
+            let itemBehaviour : UIDynamicItemBehavior = UIDynamicItemBehavior(items: [alertView])
+            itemBehaviour.addAngularVelocity(CGFloat(Double.pi), for: alertView)
             animator.addBehavior(itemBehaviour)
             
             
             
         }else{
             
-            var Push : UIPushBehavior = UIPushBehavior(items: [alertView], mode: UIPushBehaviorMode.Instantaneous)
-            Push.setAngle(CGFloat(M_PI_2), magnitude: 20.0)
+            let Push : UIPushBehavior = UIPushBehavior(items: [alertView], mode: UIPushBehavior.Mode.instantaneous)
+            Push.setAngle(CGFloat(Double.pi), magnitude: 20.0)
             animator.addBehavior(Push)
             
             
-            var gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
+            let gravity : UIGravityBehavior = UIGravityBehavior(items: [alertView])
             
             if (alertDismissStyle == ATAlertViewDismissStyle.SmoothUp){
                 
                 
-                gravity.gravityDirection = CGVectorMake(0, -10)
+                gravity.gravityDirection = CGVector(dx: 0, dy: -10)
                 
             }else if (alertDismissStyle == ATAlertViewDismissStyle.SmoothDown){
                 
-                gravity.gravityDirection = CGVectorMake(0, 10)
+                gravity.gravityDirection = CGVector(dx: 0, dy: 10)
             }
             
             animator.addBehavior(gravity)
@@ -362,22 +364,23 @@ class ATAlertView: NSObject {
         }
         
         
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animate(withDuration: 0.4, animations:{
+            
             self.overlayView.alpha = 0.0
-            }, completion: {
-                (value: Bool) in
-                self.alertView.removeFromSuperview()
-                self.alertView = nil
-                self.tag = 0
+        }, completion: {
+            (value: Bool) in
+            self.alertView.removeFromSuperview()
+            self.alertView = nil
+            self.tag = 0
+            
+            if(sender != nil){
                 
-                if(sender != nil){
+                if(self.delegate != nil){
                     
-                    if(self.delegate != nil){
-                        
-                        self.delegate.didTapButonAtIndex(sender.tag, buttonTitle:sender.titleForState(UIControlState.Normal)!);
-                    }
-                    
+                    self.delegate.didTapButonAtIndex(index: sender.tag, buttonTitle:sender.title(for: UIControl.State.normal)!);
                 }
+                
+            }
         })
         
         
@@ -387,34 +390,34 @@ class ATAlertView: NSObject {
     internal func handlePan(sender: UIPanGestureRecognizer) {
         
         if (alertView != nil) {
-            let panLocationInView = sender.locationInView(parentView)
-            let panLocationInAlertView = sender.locationInView(alertView)
+            let panLocationInView = sender.location(in: parentView)
+            let panLocationInAlertView = sender.location(in: alertView)
             
-            if sender.state == UIGestureRecognizerState.Began {
+            if sender.state == UIGestureRecognizer.State.began {
                 animator.removeAllBehaviors()
                 
-                let offset = UIOffsetMake(panLocationInAlertView.x - CGRectGetMidX(alertView.bounds), panLocationInAlertView.y - CGRectGetMidY(alertView.bounds));
+                let offset = UIOffset(horizontal: panLocationInAlertView.x - alertView.bounds.midX, vertical: panLocationInAlertView.y - alertView.bounds.midY);
                 attachmentBehavior = UIAttachmentBehavior(item: alertView, offsetFromCenter: offset, attachedToAnchor: panLocationInView)
                 animator.addBehavior(attachmentBehavior)
                 
                 
-            }else if sender.state == UIGestureRecognizerState.Changed {
+            }else if sender.state == UIGestureRecognizer.State.changed {
                 attachmentBehavior.anchorPoint = panLocationInView
                 
                 
-            }else if sender.state == UIGestureRecognizerState.Ended {
+            }else if sender.state == UIGestureRecognizer.State.ended {
                 animator.removeAllBehaviors()
                 
                 
                 
-                if sender.translationInView(parentView).y > 100 {
+                if sender.translation(in: parentView).y > 100 {
                     
-                    dismissAlert(nil)
+                    dismissAlert(sender: nil)
                     
                     
                 }else{
                     
-                    snapBehavior = UISnapBehavior(item: alertView, snapToPoint: parentView.center)
+                    snapBehavior = UISnapBehavior(item: alertView, snapTo: parentView.center)
                     animator.addBehavior(snapBehavior)
                 }
             }
@@ -428,7 +431,7 @@ class ATAlertView: NSObject {
         
         if (alertView != nil) {
             
-            dismissAlert(nil)
+            dismissAlert(sender: nil)
         }
         
     }
